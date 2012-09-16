@@ -1,12 +1,16 @@
-[![build status](https://secure.travis-ci.org/visionmedia/ejs.png)](http://travis-ci.org/visionmedia/ejs)
+# EJS Templr
 
-# EJS
+Built for [Templr](https://github.com/simontabor/templr)
 
-Embedded JavaScript templates.
+EJS Templr's renderFile method works with a JSON object right at the top of the file, split from the main body using `______`.
+
+It can also use layouts from a `_layouts` folder in the root directory. This will be changed so it can be configured at some point. It can also read a JSON config for the layouts file. The content to be put in the layout is included by simply using `<%- content %>`.
+
+It can also use includes from a `_includes` folder in the root.
 
 ## Installation
 
-    $ npm install ejs
+    $ npm install ejs-templr
 
 ## Features
 
@@ -32,8 +36,9 @@ Embedded JavaScript templates.
     ejs.compile(str, options);
     // => Function
 
-    ejs.render(str, options);
-    // => str
+    ejs.renderFile(filepath, options,function(error, html) {
+    	// Callback Function
+    });
 
 ## Options
 
@@ -47,29 +52,77 @@ Embedded JavaScript templates.
   - `close`           Closing tag, defaulting to "%>"
   - *                 All others are template-local variables
 
+##Layouts
+
+If you use the renderFile on an ejs file, it will look for configuration at the top.
+
+Configuration can be specified at follows…
+
+```json
+{
+ "title": "Example!",
+ "subtitle": "Page Subtitle"
+ "layout": "main.ejs"
+}
+```
+______
+```html <div>
+Actual page content
+</div>
+```
+
+If main.ejs was a file that looked like…
+```json
+{
+	"nav": ["Page 1","Page 2"]
+}
+```
+______
+```html
+<h1><%= page.title %></h1>
+<h2><%= page.subtitle %></h2>
+<ul>
+<% for (var i = 0;i < page.nav.length; i++) { %>
+	<li><%= page.nav[i] %></li>
+<% } %>
+</ul>
+
+<%- content %>
+
+<div>Copyright 2012</div>
+```
+
+You'd be returned a string with the following html…
+```html
+<h1>Example!</h1>
+<h2>Page Subtitle</h2>
+<ul>
+	<li>Page 1</li>
+	<li>Page 2</li>
+</ul>
+
+<div>
+Actual Page Content
+</div>
+
+<div>Copyright 2012</div>
+```
+
+
 ## Includes
 
- Includes are relative to the template with the `include` statement,
- for example if you have "./views/users.ejs" and "./views/user/show.ejs"
- you would use `<% include user/show %>`. The included file(s) are literally
- included into the template, _no_ IO is performed after compilation, thus
- local variables are available to these included templates.
-
-```
-<ul>
-  <% users.forEach(function(user){ %>
-    <% include user/show %>
-  <% }) %>
-</ul>
-```
-
+ Includes are relative to the `_includes` folder in the root directory. For example `<% include main.ejs %>` will look for the file `./_includes/main.ejs`.
+ 
+ 
 ## Custom delimiters
 
 Custom delimiters can also be applied globally:
 
-    var ejs = require('ejs');
-    ejs.open = '{{';
-    ejs.close = '}}';
+```javascript
+var ejs = require('ejs-templr');
+ejs.open = '{{';
+ejs.close = '}}';
+```
 
 Which would make the following a valid template:
 
@@ -140,10 +193,6 @@ ejs.filters.last = function(obj) {
   return obj[obj.length - 1];
 };
 ```
-
-## client-side support
-
-  include `./ejs.js` or `./ejs.min.js` and `require("ejs").compile(str)`.
 
 ## License 
 
