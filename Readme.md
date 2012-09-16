@@ -36,10 +36,6 @@ $ npm install ejs-templr
 ## Usage
 
 ```javascript
-
-ejs.compile(str, options);
-// => Function
-
 ejs.renderFile(filepath, options,function(error, html) {
 	// Callback Function
 });
