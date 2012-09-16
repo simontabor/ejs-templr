@@ -9,8 +9,9 @@ It can also use layouts from a `_layouts` folder in the root directory. This wil
 It can also use includes from a `_includes` folder in the root.
 
 ## Installation
-
-    $ npm install ejs-templr
+```bash
+$ npm install ejs-templr
+```
 
 ## Features
 
@@ -26,10 +27,11 @@ It can also use includes from a `_includes` folder in the root.
   * Newline slurping with `<% code -%>` or `<% -%>` or `<%= code -%>` or `<%- code -%>`
 
 ## Example
-
-    <% if (user) { %>
-	    <h2><%= user.name %></h2>
-    <% } %>
+```html
+<% if (user) { %>
+  <h2><%= user.name %></h2>
+<% } %>
+```
 
 ## Usage
 
@@ -129,8 +131,9 @@ ejs.close = '}}';
 ```
 
 Which would make the following a valid template:
-
-    <h1>{{= title }}</h1>
+```html
+<h1>{{= title }}</h1>
+```
 
 ## Filters
 
