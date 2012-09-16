@@ -61,12 +61,13 @@ Configuration can be specified at follows…
 ```json
 {
  "title": "Example!",
- "subtitle": "Page Subtitle"
+ "subtitle": "Page Subtitle",
  "layout": "main.ejs"
 }
 ```
-______
-```html <div>
+\______
+```html 
+<div>
 Actual page content
 </div>
 ```
@@ -77,7 +78,7 @@ If main.ejs was a file that looked like…
 	"nav": ["Page 1","Page 2"]
 }
 ```
-______
+\______
 ```html
 <h1><%= page.title %></h1>
 <h2><%= page.subtitle %></h2>
