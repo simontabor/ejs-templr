@@ -33,12 +33,15 @@ It can also use includes from a `_includes` folder in the root.
 
 ## Usage
 
-    ejs.compile(str, options);
-    // => Function
+```javascript
 
-    ejs.renderFile(filepath, options,function(error, html) {
-    	// Callback Function
-    });
+ejs.compile(str, options);
+// => Function
+
+ejs.renderFile(filepath, options,function(error, html) {
+	// Callback Function
+});
+```
 
 ## Options
 
